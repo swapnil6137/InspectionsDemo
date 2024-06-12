@@ -6,29 +6,32 @@
 //
 
 import XCTest
+@testable import InspectionsDemo
 
 final class InspectionListUITest: XCTestCase {
     
+    let app = XCUIApplication()
     
-
     override func setUpWithError() throws {
         continueAfterFailure = false
+        XCUIApplication().launch()
     }
 
     override func tearDownWithError() throws {
     }
-
-    func testExample() throws {
-        let app = XCUIApplication()
-        app.launch()
+    
+    func testAddInspectionsButton(){
+        
+        LoginUITest().testLoginButton()
+        
+        let button = app.navigationBars.buttons["btnAddInspection"]
+        
+        button.tap()
+        
+        let inspectionView = app.otherElements["inspectionView"]
+        
+        XCTAssertTrue(inspectionView.waitForExistence(timeout: 15), "Inspection view did not appear")
+        
     }
-
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
-    }
+    
 }

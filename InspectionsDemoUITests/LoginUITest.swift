@@ -103,18 +103,19 @@ final class LoginUITest: XCTestCase {
         button.tap()
         
         let alert = app.alerts.firstMatch
-            XCTAssertTrue(alert.waitForExistence(timeout: 5), "Alert controller did not appear")
-
-            XCTAssertEqual(alert.staticTexts["Inspections Demo"].label, "Inspections Demo", "Incorrect alert title")
-            XCTAssertEqual(alert.staticTexts["Please enter valid email"].label, "Please enter valid email", "Incorrect alert message")
-            XCTAssertEqual(alert.buttons["OK"].label, "OK", "OK button not found")
         
-            alert.buttons["OK"].tap()
-       
+        XCTAssertTrue(alert.waitForExistence(timeout: 5), "Alert controller did not appear")
+        
+        XCTAssertEqual(alert.staticTexts["Inspections Demo"].label, "Inspections Demo", "Incorrect alert title")
+        XCTAssertEqual(alert.staticTexts["Please enter valid email"].label, "Please enter valid email", "Incorrect alert message")
+        XCTAssertEqual(alert.buttons["OK"].label, "OK", "OK button not found")
+        
+        alert.buttons["OK"].tap()
+        
         
     }
     
-    
+   
 
     override func tearDownWithError() throws {
         
