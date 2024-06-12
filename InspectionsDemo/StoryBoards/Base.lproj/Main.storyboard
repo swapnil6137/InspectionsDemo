@@ -42,7 +42,7 @@
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter user name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jgt-rY-ML9">
                                                 <rect key="frame" x="0.0" y="0.0" width="333" height="34"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="textUserName"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="textUserName" label="textUserName"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <variation key="heightClass=compact-widthClass=regular">
@@ -60,9 +60,9 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="12Q-ap-AzY">
                                                 <rect key="frame" x="0.0" y="54" width="333" height="34"/>
-                                                <accessibility key="accessibilityConfiguration" identifier="txtPassword"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="txtPassword" label="txtPassword"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                                 <variation key="heightClass=compact-widthClass=regular">
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 </variation>

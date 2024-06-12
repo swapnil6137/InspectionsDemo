@@ -14,7 +14,7 @@ final class LoginTest: XCTestCase {
     
     override func setUpWithError() throws {
         
-        continueAfterFailure = true
+        continueAfterFailure = false
         viewModel = LoginViewModel()
         
     }

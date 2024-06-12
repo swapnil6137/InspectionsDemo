@@ -13,7 +13,7 @@ final class LoginUITest: XCTestCase {
     let app = XCUIApplication()
     
     override func setUpWithError() throws {
-        continueAfterFailure = true
+        continueAfterFailure = false
         XCUIApplication().launch()
     }
     
@@ -24,6 +24,7 @@ final class LoginUITest: XCTestCase {
         let textField = app.textFields["textUserName"]
         
         let existsPredicate = NSPredicate(format: "exists == true && isHittable == true")
+        
         expectation(for: existsPredicate, evaluatedWith: textField, handler: nil)
         
         waitForExpectations(timeout: 5, handler: nil)
@@ -31,7 +32,10 @@ final class LoginUITest: XCTestCase {
         textField.tap()
 
         if let existingText = textField.value as? String {
-            let deleteString = String(repeating: XCUIKeyboardKey.delete.rawValue, count: existingText.count)
+            
+            let deleteString = String(repeating: XCUIKeyboardKey.delete.rawValue,
+                                      count: existingText.count)
+            
             textField.typeText(deleteString)
         }
 
@@ -56,6 +60,7 @@ final class LoginUITest: XCTestCase {
             app.scrollViews.element.swipeUp()
         }
         
+        
         passwordField.tap()
         
         if let existingText = passwordField.value as? String, !existingText.isEmpty {
@@ -66,6 +71,9 @@ final class LoginUITest: XCTestCase {
         
         let newPassword = "test12345"
         passwordField.typeText(newPassword)
+
+        
+        XCTAssertEqual(passwordField.value as? String, "•••••••••")
         
     }
     
