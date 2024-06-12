@@ -23,11 +23,13 @@ class InspectionsListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let rightBarButton = UIBarButtonItem(systemItem: .add )
-        rightBarButton.target = self
-        rightBarButton.action = #selector(rightBarButtonTapped)
+        let btnAddInspection = UIBarButtonItem(systemItem: .add )
+        btnAddInspection.target = self
+        btnAddInspection.action = #selector(btnAddInspectionTapped)
+        btnAddInspection.accessibilityLabel = "btnAddInspection"
         
-        self.navigationItem.rightBarButtonItem = rightBarButton
+        
+        self.navigationItem.rightBarButtonItem = btnAddInspection
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +51,7 @@ class InspectionsListVC: UIViewController {
     
     //MARK: - Local Methods
     
-    @objc func rightBarButtonTapped() {
+    @objc func btnAddInspectionTapped() {
         self.navigateToInspection(indexPath: nil)
     }
     
