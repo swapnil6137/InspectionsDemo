@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Rxm-lY-zPR">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -19,6 +20,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6f7-cs-csZ">
                                 <rect key="frame" x="29.999999999999996" y="133" width="56.666666666666657" height="26.333333333333343"/>
+                                <accessibility key="accessibilityConfiguration" identifier="lblLoginMethod" label="lblLoginMethod"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -76,6 +78,7 @@
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1u-QO-uET">
                                                 <rect key="frame" x="0.0" y="107.99999999999997" width="333" height="29"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="btnLoginRegisterChoice" label="btnLoginRegisterChoice"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="Not registered ? Register">
@@ -99,6 +102,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxh-6p-TBM">
                                         <rect key="frame" x="0.0" y="156.99999999999997" width="333" height="40"/>
                                         <color key="backgroundColor" name="InspectionAppColor"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="btnLoginRegister" label="btnLoginRegister"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="7iu-HR-aX7"/>
                                         </constraints>
@@ -610,6 +614,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="b18-dd-DWH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <accessibility key="accessibilityConfiguration" identifier="inspectionListView" label="inspectionListView"/>
                         <constraints>
                             <constraint firstItem="mc5-gg-Agw" firstAttribute="leading" secondItem="uNJ-1k-ass" secondAttribute="leading" id="456-zA-q3C"/>
                             <constraint firstItem="b18-dd-DWH" firstAttribute="trailing" secondItem="mc5-gg-Agw" secondAttribute="trailing" id="5Ch-Is-1VV"/>
@@ -657,7 +662,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

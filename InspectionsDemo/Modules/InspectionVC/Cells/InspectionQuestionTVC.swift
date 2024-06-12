@@ -12,8 +12,14 @@ protocol InspectionQuestionTVCDelegate : AnyObject{
 }
 
 class InspectionQuestionTVC: UITableViewCell {
+
+    @IBOutlet weak var lblQuestionName: UILabel!
+    
+    @IBOutlet weak var tblAnswersList: UITableView!
     
     weak var delegate : InspectionQuestionTVCDelegate?
+    
+    var indexPath : IndexPath?
     
     var questionDetails : QuestionDetail?{
         didSet{
@@ -21,12 +27,6 @@ class InspectionQuestionTVC: UITableViewCell {
             self.tblAnswersList.reloadData()
         }
     }
-
-    @IBOutlet weak var lblQuestionName: UILabel!
-    
-    @IBOutlet weak var tblAnswersList: UITableView!
-    
-    var indexPath : IndexPath?
 
     override func awakeFromNib() {
         super.awakeFromNib()

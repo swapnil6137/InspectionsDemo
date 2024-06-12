@@ -77,9 +77,15 @@ class RegisterOrLoginVC: UIViewController {
         
         self.view.endEditing(true)
         
-        let isValidDetails = self.viewModel.validateCredentials()
-        
-        if isValidDetails {
+        if let isValidDetails = self.viewModel.validateCredentials() {
+            
+            if case .passwordFailed(let message) = isValidDetails {
+                self.presentAlert(message: message)
+            }else if case .userNameFailed(let message) = isValidDetails {
+                self.presentAlert(message: message)
+            }
+           
+        }else{
             self.viewModel.initiateRequest()
         }
         

@@ -134,8 +134,8 @@ extension UIViewController{
             guard let self = self else { return }
             // Create the alert controller
             let alert = UIAlertController(title: "Inspections Demo", message: message , preferredStyle: .alert)
+            alert.accessibilityLabel = "alertVC"
             
-            // Add an "OK" action
             let okAction = UIAlertAction(title: "OK", style: .default) { _ in
                 completion?()
             }

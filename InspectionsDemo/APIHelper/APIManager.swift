@@ -8,48 +8,6 @@
 import Foundation
 import Combine
 
-enum HTTPMethod: String {
-    case get = "GET"
-    case post = "POST"
-    case put = "PUT"
-    case delete = "DELETE"
-}
-
-
-public enum APIServiceError: Error {
-    
-    case apiError
-    case invalidEndpoint
-    case invalidResponse
-    case noData
-    case decodeError
-    case successWithEmptyData
-    case validationError(Int,LoginDetailsError)
-    case noDataFound(Int,String)
-    case badRequest(String)
-    case networkError
-    case urlError
-}
-
-struct EndPointDetails {
-    var name : String?
-    var method : HTTPMethod = .get
-    var patch : String?
-    var portNumberForHttp : Int?
-    var urlScheme : String?
-}
-
-struct APIEndPoint {
-    
-    static let REGISTER = EndPointDetails.init(name: "/api/register", method: .post)
-    static let LOGIN = EndPointDetails.init(name: "/api/login", method: .post)
-    static let START_INSPECTION = EndPointDetails.init(name: "/api/inspections/start")
-    static let SUBMIT_INSPECTION = EndPointDetails.init(name: "/api/inspections/submit", method: .post)
-    
-    
-}
-
-
 class NetworkManager {
     
     static let shared = NetworkManager()
@@ -101,7 +59,7 @@ class NetworkManager {
         let task = session.dataTask(with: request) { data, response, error in
             
             if let error = error {
-                completion(.failure(.badRequest(error.localizedDescription)))
+                completion(.failure(.apiError(error.localizedDescription)))
                 return
             }
             
@@ -130,12 +88,12 @@ class NetworkManager {
                     }
                 }
                 
-                completion(.failure(.apiError))
+                completion(.failure(.apiError("Undefined Error")))
                 return
             }
             
             guard let data = data else {
-                completion(.failure(.apiError))
+                completion(.failure(.noData))
                 return
             }
             
@@ -160,6 +118,12 @@ class NetworkManager {
         task.resume()
     }
     
+   
+
+}
+
+extension NetworkManager {
+    
     func newJSONDecoder() -> JSONDecoder {
         let decoder = JSONDecoder()
         if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
@@ -175,6 +139,6 @@ class NetworkManager {
         }
         return encoder
     }
-
+    
 }
 

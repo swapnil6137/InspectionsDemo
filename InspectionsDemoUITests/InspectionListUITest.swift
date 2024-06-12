@@ -1,24 +1,24 @@
 //
-//  InspectionsDemoUITests.swift
+//  InspectionListUITest.swift
 //  InspectionsDemoUITests
 //
-//  Created by Swapnil Shinde on 12/06/24.
+//  Created by Swapnil Shinde on 13/06/24.
 //
 
 import XCTest
 
-final class InspectionsDemoUITests: XCTestCase {
+final class InspectionListUITest: XCTestCase {
+    
+    
 
     override func setUpWithError() throws {
         continueAfterFailure = false
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
     func testExample() throws {
-        // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launch()
     }
