@@ -166,4 +166,29 @@ func print(_ items: Any..., separator: String = " ", terminator: String = "\n") 
     #endif
 }
 
+func readJSONFile(fileName: String) -> InspectionDetails? {
+    
+    guard let path = Bundle.main.path(forResource: fileName,
+                                      ofType: "json") else {
+        
+        print("File not found: \(fileName).json")
+        return nil
+    }
+
+    do {
+        
+        let data = try Data(contentsOf: URL(fileURLWithPath: path),
+                            options: .mappedIfSafe)
+
+        let inspection = try JSONDecoder().decode(InspectionDetails.self,
+                                            from: data)
+        
+        return inspection
+        
+    } catch {
+        print("Error decoding JSON: \(error)")
+        return nil
+    }
+}
+
 

@@ -178,7 +178,7 @@ extension InspectionViewModel {
      }
      
      //MARK: - Update inspection in database
-    private func insertNewInspectionData() {
+     func insertNewInspectionData() {
          
          let context = CoreDataHelper.shared.context
          

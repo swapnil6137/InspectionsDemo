@@ -148,12 +148,3 @@ final class LoginUITest: XCTestCase {
     }
 
 }
-
-class AllLoginUITests: XCTestCase {
-    
-    static var allTests = [
-        ("testFeatureA", LoginUITest().testLoginButtonWithoutUserName(),
-         "testFeatureB", LoginUITest().testLoginButton()
-        )
-    ]
-}

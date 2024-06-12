@@ -16,15 +16,15 @@ final class LoginTest: XCTestCase {
         
         continueAfterFailure = false
         viewModel = LoginViewModel()
+        viewModel.userName = "abc1@abc.com"
+        viewModel.password = "test12345"
+        
         
     }
     
     func testLoginSuccess() {
     
         let expectation = expectation(description: "Loggin In")
-        
-        viewModel.userName = "abc1@abc.com"
-        viewModel.password = "test123456"
 
         viewModel.doLogin { (result: Result<LoginDetails, APIServiceError>) in
             switch result {
@@ -55,9 +55,6 @@ final class LoginTest: XCTestCase {
     func testSignUpSuccess() {
     
         let expectation = expectation(description: "Register user")
-        
-        viewModel.userName = "abc1@abc.com"
-        viewModel.password = "test123456"
 
         viewModel.doSignUp { (result: Result<LoginDetails, APIServiceError>) in
             switch result {

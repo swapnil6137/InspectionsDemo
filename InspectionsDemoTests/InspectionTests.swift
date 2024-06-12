@@ -6,30 +6,78 @@
 //
 
 import XCTest
+@testable import InspectionsDemo
 
 final class InspectionTests: XCTestCase {
+    
+    var viewModel: InspectionViewModel!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        continueAfterFailure = false
+        self.viewModel = InspectionViewModel()
+    }
+    
+    
+    /// Test starting new inspection
+    func testStartNewInspection() {
+    
+        let expectation = expectation(description: "Get inspection data")
+        
+        viewModel.startNewInspection()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            XCTAssertNotNil(self.viewModel.inspectionInfo)
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
+    /// Test saving inspection to draft
+    func testSaveInspection() {
+        
+        self.viewModel =  InspectionViewModel.init(inpectionInfo: readJSONFile(fileName: "Inspections"))
+        
+        let expectation = expectation(description: "Save inspection data")
+        
+        self.viewModel.insertNewInspectionData()
+        
+        self.viewModel.saveInspectionToDraft()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            XCTAssertTrue(self.viewModel.inspectionInfo?.inspection?.status == INSPECTION_STATUS.DRAFT.rawValue)
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
+    /// Test submitting inspection to server 
+    func testSubmitInspection() {
+        
+        self.viewModel =  InspectionViewModel.init(inpectionInfo: readJSONFile(fileName: "Inspections"))
+        
+        let expectation = expectation(description: "Save inspection data")
+        
+        self.viewModel.insertNewInspectionData()
+        
+        self.viewModel.submitInspectionToServer()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            XCTAssertTrue(self.viewModel.inspectionInfo?.inspection?.status == INSPECTION_STATUS.COMPLETED.rawValue)
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5, handler: nil)
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        self.viewModel = nil
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
 
 }
+
+
+
