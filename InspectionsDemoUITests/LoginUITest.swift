@@ -17,6 +17,8 @@ final class LoginUITest: XCTestCase {
         XCUIApplication().launch()
     }
     
+    
+    /// Test user name textfield with input
     func testUserNameTextField() {
        
         let textField = app.textFields["textUserName"]
@@ -40,6 +42,7 @@ final class LoginUITest: XCTestCase {
         
     }
     
+    /// Test password textfield with input
     func testSetPasswordAndVerify() {
         
         let passwordField = app.secureTextFields["txtPassword"]
@@ -66,6 +69,8 @@ final class LoginUITest: XCTestCase {
         
     }
     
+    
+    /// Test login flow
     func testLoginButton() {
         
         let app = XCUIApplication()
@@ -77,9 +82,13 @@ final class LoginUITest: XCTestCase {
         let button = app.buttons["btnLoginRegister"]
         
         let existsPredicate = NSPredicate(format: "exists == true && isHittable == true")
-        expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
         
-        waitForExpectations(timeout: 10, handler: nil)
+        expectation(for: existsPredicate,
+                    evaluatedWith: button,
+                    handler: nil)
+        
+        waitForExpectations(timeout: 10,
+                            handler: nil)
         
         button.tap()
         
@@ -87,6 +96,7 @@ final class LoginUITest: XCTestCase {
         
     }
     
+    /// Test login validation error
     func testLoginButtonWithoutUserName() {
         
         let app = XCUIApplication()
@@ -104,14 +114,22 @@ final class LoginUITest: XCTestCase {
         
         let alert = app.alerts.firstMatch
         
-        XCTAssertTrue(alert.waitForExistence(timeout: 5), "Alert controller did not appear")
+        XCTAssertTrue(alert.waitForExistence(timeout: 5),
+                      "Alert controller did not appear")
         
-        XCTAssertEqual(alert.staticTexts["Inspections Demo"].label, "Inspections Demo", "Incorrect alert title")
-        XCTAssertEqual(alert.staticTexts["Please enter valid email"].label, "Please enter valid email", "Incorrect alert message")
-        XCTAssertEqual(alert.buttons["OK"].label, "OK", "OK button not found")
+        XCTAssertEqual(alert.staticTexts["Inspections Demo"].label,
+                       "Inspections Demo",
+                       "Incorrect alert title")
+        
+        XCTAssertEqual(alert.staticTexts["Please enter valid email"].label,
+                       "Please enter valid email",
+                       "Incorrect alert message")
+        
+        XCTAssertEqual(alert.buttons["OK"].label,
+                       "OK",
+                       "OK button not found")
         
         alert.buttons["OK"].tap()
-        
         
     }
     

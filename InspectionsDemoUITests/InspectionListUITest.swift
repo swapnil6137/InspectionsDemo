@@ -30,7 +30,8 @@ final class InspectionListUITest: XCTestCase {
         
         let inspectionView = app.otherElements["inspectionView"]
         
-        XCTAssertTrue(inspectionView.waitForExistence(timeout: 15), "Inspection view did not appear")
+        XCTAssertTrue(inspectionView.waitForExistence(timeout: 15),
+                      "Inspection view did not appear")
         
     }
     
