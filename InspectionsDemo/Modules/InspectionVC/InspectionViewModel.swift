@@ -16,6 +16,10 @@ protocol InspectionViewModelDelegate : AnyObject {
     func inspectionSavedInDrafts()
 }
 
+public enum INSPECTION_VALIDATION_ERROR: Error {
+    case allQuestionsNotAnswered(String)
+}
+
 class InspectionViewModel{
     
    
@@ -29,6 +33,21 @@ class InspectionViewModel{
     
     init(inpectionInfo: InspectionDetails? = nil) {
         self.inspectionInfo = inpectionInfo
+    }
+    
+    func validateAllQuestionsAnswered() -> INSPECTION_VALIDATION_ERROR? {
+        
+        for category in self.inspectionInfo?.inspection?.survey?.categories ?? [] {
+            
+            for question in category.questions ?? []{
+                
+                if question.selectedAnswerChoiceId == nil {
+                    return .allQuestionsNotAnswered("Please answer all the questions before submitting the inspection.")
+                }
+            }
+        }
+        
+        return nil
     }
     
     

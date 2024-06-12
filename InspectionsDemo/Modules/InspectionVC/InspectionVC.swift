@@ -36,7 +36,16 @@ class InspectionVC: UIViewController {
     //MARK: - IBAction
     @IBAction func btnSubmitClicked(_ sender: UIButton) {
        
-        self.viewModel.submitInspectionToServer()
+        if let isValidDetails = self.viewModel.validateAllQuestionsAnswered() {
+            
+            if case .allQuestionsNotAnswered(let message) = isValidDetails {
+                self.presentAlert(message: message)
+            }
+           
+        }else{
+            self.viewModel.submitInspectionToServer()
+        }
+        
         
     }
     
