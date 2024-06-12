@@ -155,7 +155,7 @@ extension InspectionViewModel {
          
          let inspections = CoreDataHelper.shared.fetch(InspectionDetail.self,
                                                        predicate: NSPredicate(format: "id == %d", inspectionId))
-         
+        
          do {
              
              if let inspectionToUpdate = inspections.first {
@@ -165,6 +165,8 @@ extension InspectionViewModel {
                  inspectionToUpdate.data = try inspectionInfo?.jsonString(encoding: .utf8)
                  
                  try CoreDataHelper.shared.context.save()
+                 
+                 completion?()
                  
              } else {
                  print("No inspection found with name \(inspectionId).")
