@@ -23,7 +23,7 @@ final class LoginTest: XCTestCase {
     
         let expectation = expectation(description: "Loggin In")
         
-        viewModel.email = "abc1@abc.com"
+        viewModel.userName = "abc1@abc.com"
         viewModel.password = "test123456"
 
         viewModel.doLogin { (result: Result<LoginDetails, APIServiceError>) in
@@ -56,7 +56,7 @@ final class LoginTest: XCTestCase {
     
         let expectation = expectation(description: "Register user")
         
-        viewModel.email = "abc1@abc.com"
+        viewModel.userName = "abc1@abc.com"
         viewModel.password = "test123456"
 
         viewModel.doSignUp { (result: Result<LoginDetails, APIServiceError>) in

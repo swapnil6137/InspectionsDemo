@@ -25,7 +25,7 @@ class LoginViewModel : ObservableObject {
     
     //MARK: - Variables
     
-    var email : String?
+    var userName : String?
     var password : String?
     var isSuccess = false
     
@@ -39,7 +39,7 @@ class LoginViewModel : ObservableObject {
     
     func validateCredentials() -> LOGIN_VALIDATION_ERROR? {
         
-        guard let userName = self.email ,
+        guard let userName = self.userName ,
               !userName.isEmpty ,
               userName.count > 6  else{
             
@@ -57,7 +57,7 @@ class LoginViewModel : ObservableObject {
     }
     
     func getParameters() -> [String : String]{
-        return ["email" : self.email! , "password" : self.password!]
+        return ["email" : self.userName! , "password" : self.password!]
     }
     
     func initiateRequest(){

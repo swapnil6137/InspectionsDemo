@@ -62,7 +62,7 @@
                                                 <rect key="frame" x="0.0" y="54" width="333" height="34"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="txtPassword"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 <variation key="heightClass=compact-widthClass=regular">
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 </variation>

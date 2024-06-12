@@ -37,7 +37,7 @@ class RegisterOrLoginVC: UIViewController {
         initiateBinding()
         
         self.txtPassword.text = viewModel.password
-        self.txtUserName.text = viewModel.email
+        self.txtUserName.text = viewModel.userName
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,6 +49,14 @@ class RegisterOrLoginVC: UIViewController {
         
         self.viewModel.isSuccess = false
         
+        self.txtPassword.text = nil
+        self.txtUserName.text = nil
+        
+        self.viewModel.userName = nil
+        self.viewModel.password = nil
+        
+        self.viewModel.loginType = .LOGIN
+        
     }
     
     //MARK: - IBAction
@@ -57,7 +65,7 @@ class RegisterOrLoginVC: UIViewController {
         
         switch sender {
         case txtUserName :
-            viewModel.email = sender.text
+            viewModel.userName = sender.text
             break
         case txtPassword:
             viewModel.password = sender.text
