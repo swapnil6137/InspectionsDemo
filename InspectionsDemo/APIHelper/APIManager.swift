@@ -24,6 +24,41 @@ class NetworkManager {
     
     private let session: URLSession = URLSession.shared
     
+    func request<T:Decodable>(endPoint: EndPointDetails, parameters: [String: Any]? = nil) throws -> AnyPublisher<T,Error>{
+        let url = endPoint.getUrl()!
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = endPoint.method.rawValue
+        
+        if let parameters = parameters {
+            request.httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        }
+        
+        return  URLSession.shared.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                
+                guard data.count > 0 else {
+                    let status = (response as! HTTPURLResponse).statusCode
+                    return Data("{\"email\": \"sample\", \"password\": \"test\"}".utf8)
+                }
+                
+                guard let httpResponse = response as? HTTPURLResponse,
+                      200..<300 ~= httpResponse.statusCode else {
+                    switch (response as! HTTPURLResponse).statusCode {
+                    case (400...499):
+                        throw APIServiceError.apiError("Invalid Error Code")
+                    default:
+                        throw APIServiceError.apiError("Invalid Error Code")
+                    }
+                }
+                return data
+            }
+            //.map(\.data)
+            .decode(type: T.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
+    }
+    
     func request<T: Decodable>(endPoint: EndPointDetails, parameters: [String: Any]? = nil, completion: @escaping (Result<T, APIServiceError>) -> Void) {
         
         var urlComponents = self.urlComponents

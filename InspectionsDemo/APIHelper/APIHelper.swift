@@ -36,6 +36,32 @@ struct EndPointDetails {
     var patch : String?
     var portNumberForHttp : Int?
     var urlScheme : String?
+    
+    func getUrl() -> URL? {
+        
+        var urlComponents = NetworkManager.shared.urlComponents
+        
+        var path =  ""
+        
+       
+        if let pathName = self.name{
+            path = path.appending("/\(pathName)")
+        }
+        
+        if let patch = self.patch{
+            path = path.appending("/\(patch)")
+        }
+        
+        path = path.replacingOccurrences(of: "//", with: "/")
+        
+        urlComponents.path = path
+        
+        guard let url = urlComponents.url else {
+            return nil
+        }
+        
+        return url
+    }
 }
 
 struct APIEndPoint {

@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import Combine
 
 //MARK: - InspectionViewModel Delegate
 protocol InspectionViewModelDelegate : AnyObject {
@@ -21,6 +22,8 @@ public enum INSPECTION_VALIDATION_ERROR: Error {
 }
 
 class InspectionViewModel{
+    
+    var cancellables = Set<AnyCancellable>()
     
    
     weak var deleagte : InspectionViewModelDelegate?
@@ -128,10 +131,25 @@ class InspectionViewModel{
 
 extension InspectionViewModel {
     
+    //MARK: Sample of API calling Using Combine framework.
     private func getInspectionData<T: Decodable>(completion: @escaping (Result<T, APIServiceError>) -> Void){
         
-        NetworkManager.shared.request(endPoint: APIEndPoint.START_INSPECTION,
-                                      completion: completion)
+        do{
+            try NetworkManager.shared.request(endPoint: APIEndPoint.START_INSPECTION)
+                .sink (receiveCompletion: { requestCompletion in
+                    switch requestCompletion {
+                    case let .failure(error):
+                        completion(.failure(error as! APIServiceError))
+                    default: break
+                    }
+                }, receiveValue: { value in
+                    completion(.success(value))
+                }).store(in: &cancellables)
+            
+        }catch{
+            completion(.failure(.apiError("Unexpected")))
+        }
+            
         
     }
     

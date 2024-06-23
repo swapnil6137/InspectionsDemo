@@ -29,12 +29,12 @@ class LoginViewModel : ObservableObject {
     var password : String?
     var isSuccess = false
     
+    var cancellables = Set<AnyCancellable>()
+    
     //MARK: - Observables
     @Published var loginType : LOGIN_TYPE = .LOGIN
     
     weak var delegate : LoginViewModelDelegate?
-    
-    private var cancellables: Set<AnyCancellable> = []
     
     
     func validateCredentials() -> LOGIN_VALIDATION_ERROR? {
@@ -132,10 +132,25 @@ class LoginViewModel : ObservableObject {
     
     func doLogin<T: Decodable>(completion: @escaping (Result<T, APIServiceError>) -> Void){
         
-        NetworkManager.shared.request(endPoint: APIEndPoint.LOGIN,
-                                      parameters: getParameters(),
-                                      completion: completion)
+//        NetworkManager.shared.request(endPoint: APIEndPoint.LOGIN,
+//                                      parameters: getParameters(),
+//                                      completion: completion)
         
+        do {
+           try NetworkManager.shared.request(endPoint: APIEndPoint.LOGIN , parameters: getParameters())
+                .sink(receiveCompletion: { apiCompletion in
+                    switch apiCompletion {
+                    case .finished:
+                        break
+                    case .failure(let failure):
+                        completion(.failure(failure as! APIServiceError))
+                    }
+                }) { value in
+                    completion(.success(value))
+                }.store(in: &cancellables)
+        }catch{
+            completion(.failure(.apiError("Error")))
+        }
     }
     
     func doSignUp<T: Decodable>(completion: @escaping (Result<T, APIServiceError>) -> Void){
