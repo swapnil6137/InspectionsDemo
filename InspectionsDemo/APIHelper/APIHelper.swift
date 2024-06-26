@@ -28,6 +28,7 @@ public enum APIServiceError: Error {
     case badRequest(String)
     case networkError
     case urlError
+    case serverError
 }
 
 struct EndPointDetails {

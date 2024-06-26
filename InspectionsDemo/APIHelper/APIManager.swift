@@ -38,20 +38,29 @@ class NetworkManager {
         return  URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 
-                guard data.count > 0 else {
-                    let status = (response as! HTTPURLResponse).statusCode
-                    return Data("{\"email\": \"sample\", \"password\": \"test\"}".utf8)
-                }
-                
                 guard let httpResponse = response as? HTTPURLResponse,
                       200..<300 ~= httpResponse.statusCode else {
                     switch (response as! HTTPURLResponse).statusCode {
-                    case (400...499):
-                        throw APIServiceError.apiError("Invalid Error Code")
+                    case 400:
+                        throw APIServiceError.apiError("Email or password is missing")
+                    case 401:
+                        throw APIServiceError.apiError("User does not exist or the credentials are incorrect")
                     default:
-                        throw APIServiceError.apiError("Invalid Error Code")
+                        throw APIServiceError.serverError
                     }
                 }
+                
+                //Check data after response status code check
+                if data.isEmpty {
+                    let status = (response as! HTTPURLResponse).statusCode
+                    switch endPoint.name{
+                    case APIEndPoint.LOGIN.name:
+                        return Data("{\"email\": \"sample\", \"password\": \"test\"}".utf8)
+                    default:
+                        break
+                    }
+                }
+                
                 return data
             }
             //.map(\.data)
