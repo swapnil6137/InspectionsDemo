@@ -8,6 +8,26 @@
 import Foundation
 import Combine
 
+protocol Handler{
+    func execute<T: Decodable>(data : Data) -> T?
+}
+
+class JSONDecodingHandler : Handler {
+    
+    func execute<T: Decodable>(data : Data) -> T?{
+        do {
+            
+            let details = try JSONDecoder.init().decode(T.self, from: data)
+            return details
+            
+        }catch{
+            return nil
+        }
+    }
+}
+
+
+
 class NetworkManager {
     
     static let shared = NetworkManager()
@@ -71,14 +91,12 @@ class NetworkManager {
                     
                     switch statusCode{
                     case 400,401:
-                        do {
-                            if let data = data{
-                                let details = try JSONDecoder.init().decode(LoginDetailsError.self, from: data)
-                                completion(.failure(.validationError(statusCode, details)))
-                                return
-                            }
-                        }catch{
-                            print(error.localizedDescription)
+                        
+                        if let data = data , let result : LoginDetailsError = JSONDecodingHandler().execute(data: data){
+                            completion(.failure(.validationError(statusCode, result)))
+                            return
+                        }else{
+                            completion(.failure(.noData))
                         }
                         
                         break
